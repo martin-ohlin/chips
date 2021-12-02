@@ -38,7 +38,7 @@ import android.provider.ContactsContract.Contacts;
             Contacts.PHOTO_THUMBNAIL_URI,                   // 6
             Contacts.DISPLAY_NAME_SOURCE,                   // 7
             Contacts.LOOKUP_KEY,                            // 8
-            Email.MIMETYPE // 9
+            ContactsContract.CommonDataKinds.Email.MIMETYPE // 9
         }, Phone.CONTENT_FILTER_URI, Phone.CONTENT_URI) {
 
             @Override
@@ -58,7 +58,7 @@ import android.provider.ContactsContract.Contacts;
             Contacts.PHOTO_THUMBNAIL_URI,                   // 6
             Contacts.DISPLAY_NAME_SOURCE,                   // 7
             Contacts.LOOKUP_KEY,                            // 8
-            Email.MIMETYPE // 9
+            ContactsContract.CommonDataKinds.Email.MIMETYPE // 9
         }, Email.CONTENT_FILTER_URI, Email.CONTENT_URI) {
 
             @Override

@@ -95,7 +95,7 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
             ArrayList<String> inAddresses, int addressType, Account account,
             RecipientMatchCallback callback,
             ChipsUtil.PermissionsCheckListener permissionsCheckListener) {
-        Query query;
+        Queries.Query query;
         if (addressType == QUERY_TYPE_EMAIL) {
             query = Queries.EMAIL;
         } else {
@@ -128,7 +128,7 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
                 c = context.getContentResolver().query(
                         query.getContentUri(),
                         query.getProjection(),
-                        query.getProjection()[Query.DESTINATION] + " IN ("
+                        query.getProjection()[Queries.Query.DESTINATION] + " IN ("
                                 + bindString.toString() + ")", addressArray, null);
             }
             recipientEntries = processContactEntries(c, null /* directoryId */);
@@ -159,7 +159,7 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
 
     private static void getMatchingRecipientsFromDirectoryQueries(Context context,
             Map<String, RecipientEntry> recipientEntries, Set<String> addresses,
-            Account account, Set<String> matchesNotFound, Query query,
+            Account account, Set<String> matchesNotFound, Queries.Query query,
             RecipientMatchCallback callback,
             ChipsUtil.PermissionsCheckListener permissionsCheckListener) {
         // See if any entries did not resolve; if so, we need to check other
@@ -250,20 +250,20 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
         HashMap<String, RecipientEntry> recipientEntries = new HashMap<String, RecipientEntry>();
         if (c != null && c.moveToFirst()) {
             do {
-                String address = c.getString(Query.DESTINATION);
+                String address = c.getString(Queries.Query.DESTINATION);
 
                 final RecipientEntry newRecipientEntry = RecipientEntry.constructTopLevelEntry(
-                        c.getString(Query.NAME),
-                        c.getInt(Query.DISPLAY_NAME_SOURCE),
-                        c.getString(Query.DESTINATION),
-                        c.getInt(Query.DESTINATION_TYPE),
-                        c.getString(Query.DESTINATION_LABEL),
-                        c.getLong(Query.CONTACT_ID),
+                        c.getString(Queries.Query.NAME),
+                        c.getInt(Queries.Query.DISPLAY_NAME_SOURCE),
+                        c.getString(Queries.Query.DESTINATION),
+                        c.getInt(Queries.Query.DESTINATION_TYPE),
+                        c.getString(Queries.Query.DESTINATION_LABEL),
+                        c.getLong(Queries.Query.CONTACT_ID),
                         directoryId,
-                        c.getLong(Query.DATA_ID),
-                        c.getString(Query.PHOTO_THUMBNAIL_URI),
+                        c.getLong(Queries.Query.DATA_ID),
+                        c.getString(Queries.Query.PHOTO_THUMBNAIL_URI),
                         true,
-                        c.getString(Query.LOOKUP_KEY));
+                        c.getString(Queries.Query.LOOKUP_KEY));
 
                 /*
                  * In certain situations, we may have two results for one address, where one of the
@@ -277,9 +277,9 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
                 if (Log.isLoggable(TAG, Log.DEBUG)) {
                     Log.d(TAG, "Received reverse look up information for " + address
                             + " RESULTS: "
-                            + " NAME : " + c.getString(Query.NAME)
-                            + " CONTACT ID : " + c.getLong(Query.CONTACT_ID)
-                            + " ADDRESS :" + c.getString(Query.DESTINATION));
+                            + " NAME : " + c.getString(Queries.Query.NAME)
+                            + " CONTACT ID : " + c.getLong(Queries.Query.CONTACT_ID)
+                            + " ADDRESS :" + c.getString(Queries.Query.DESTINATION));
                 }
             } while (c.moveToNext());
         }
@@ -430,7 +430,7 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
         }
 
         final String selection = new StringBuilder()
-                .append(projection[Query.CONTACT_ID])
+                .append(projection[Queries.Query.CONTACT_ID])
                 .append(" = ?")
                 .toString();
         final Cursor cursor;
@@ -562,7 +562,7 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
     public long getItemId(int position) {
         Cursor c = getCursor();
         if (c.moveToPosition(position)) {
-            c.getLong(Query.DATA_ID);
+            c.getLong(Queries.Query.DATA_ID);
         }
         return -1;
     }
@@ -571,17 +571,17 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
         Cursor c = getCursor();
         c.moveToPosition(position);
         return RecipientEntry.constructTopLevelEntry(
-                c.getString(Query.NAME),
-                c.getInt(Query.DISPLAY_NAME_SOURCE),
-                c.getString(Query.DESTINATION),
-                c.getInt(Query.DESTINATION_TYPE),
-                c.getString(Query.DESTINATION_LABEL),
-                c.getLong(Query.CONTACT_ID),
+                c.getString(Queries.Query.NAME),
+                c.getInt(Queries.Query.DISPLAY_NAME_SOURCE),
+                c.getString(Queries.Query.DESTINATION),
+                c.getInt(Queries.Query.DESTINATION_TYPE),
+                c.getString(Queries.Query.DESTINATION_LABEL),
+                c.getLong(Queries.Query.CONTACT_ID),
                 mDirectoryId,
-                c.getLong(Query.DATA_ID),
-                c.getString(Query.PHOTO_THUMBNAIL_URI),
+                c.getLong(Queries.Query.DATA_ID),
+                c.getString(Queries.Query.PHOTO_THUMBNAIL_URI),
                 true,
-                c.getString(Query.LOOKUP_KEY));
+                c.getString(Queries.Query.LOOKUP_KEY));
     }
 
     @Override
@@ -591,7 +591,7 @@ public class RecipientAlternatesAdapter extends CursorAdapter {
         if (convertView == null) {
             convertView = mDropdownChipLayouter.newView(AdapterType.RECIPIENT_ALTERNATES);
         }
-        if (cursor.getLong(Query.DATA_ID) == mCurrentId) {
+        if (cursor.getLong(Queries.Query.DATA_ID) == mCurrentId) {
             mCheckedItemPosition = position;
             if (mCheckedItemChangedListener != null) {
                 mCheckedItemChangedListener.onCheckedItemChanged(mCheckedItemPosition);

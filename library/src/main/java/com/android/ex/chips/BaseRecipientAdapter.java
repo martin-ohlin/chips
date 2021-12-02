@@ -30,7 +30,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Directory;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.util.Rfc822Token;
 import android.util.Log;
@@ -187,7 +187,7 @@ public class BaseRecipientAdapter extends BaseAdapter implements Filterable, Acc
 
     /**
      * Used to pass results from {@link DefaultFilter#performFiltering(CharSequence)} to
-     * {@link DefaultFilter#publishResults(CharSequence, Filter.FilterResults)}
+     * {@link DefaultFilter#publishResults(CharSequence, android.widget.Filter.FilterResults)}
      */
     private static class DefaultFilterResult {
         public final List<RecipientEntry> entries;
@@ -787,10 +787,10 @@ public class BaseRecipientAdapter extends BaseAdapter implements Filterable, Acc
     }
 
     /**
-     * Called whenever {@link DirectoryFilter}
+     * Called whenever {@link com.android.ex.chips.BaseRecipientAdapter.DirectoryFilter}
      * wants to add an additional entry to the results. Derived classes should override
      * this method if they are not using the default data structures provided by
-     * {@link BaseRecipientAdapter} and are instead using their
+     * {@link com.android.ex.chips.BaseRecipientAdapter} and are instead using their
      * own data structures to store and collate data.
      * @param entry the entry being added
      * @param isAggregatedEntry

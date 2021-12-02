@@ -9,11 +9,11 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.v4.view.MarginLayoutParamsCompat;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.core.view.MarginLayoutParamsCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -110,7 +110,7 @@ public class DropdownChipLayouter {
 
     /**
      * See {@link #bindView(View, ViewGroup, RecipientEntry, int, AdapterType, String)}
-     * @param deleteDrawable a {@link StateListDrawable} representing
+     * @param deleteDrawable a {@link android.graphics.drawable.StateListDrawable} representing
      *     the delete icon. android.R.attr.state_activated should map to the delete icon, and the
      *     default state can map to a drawable of your choice (or null for no drawable).
      */
@@ -290,7 +290,7 @@ public class DropdownChipLayouter {
             view.setContentDescription(
                     res.getString(R.string.dropdown_delete_button_desc, recipient));
             if (mDeleteListener != null) {
-                view.setOnClickListener(new OnClickListener() {
+                view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (drawable.getCurrent() != null) {
